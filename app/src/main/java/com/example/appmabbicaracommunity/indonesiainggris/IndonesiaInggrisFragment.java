@@ -46,7 +46,7 @@ public class IndonesiaInggrisFragment extends Fragment implements TextToSpeech.O
     private CircleImageView voice;
     private String searchText;
 
-    private TextToSpeech tts;
+    private TextToSpeech ttsindo,ttsinggris;
 
     private RecyclerView result_list;
 
@@ -81,7 +81,8 @@ public class IndonesiaInggrisFragment extends Fragment implements TextToSpeech.O
         mUserDatabase = FirebaseDatabase.getInstance().getReference("IndonesiaInggris");
         search_field = view.findViewById(R.id.search_field);
         search_btn = view.findViewById(R.id.search_btn);
-        tts = new TextToSpeech(getActivity(), (TextToSpeech.OnInitListener) this);
+        ttsindo = new TextToSpeech(getActivity(), (TextToSpeech.OnInitListener) this);
+        ttsinggris = new TextToSpeech(getActivity(), (TextToSpeech.OnInitListener) this);
         result_list = view.findViewById(R.id.result_list);
         result_list.setHasFixedSize(true);
         result_list.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -137,7 +138,6 @@ public class IndonesiaInggrisFragment extends Fragment implements TextToSpeech.O
         Query firebaseSearchQuery = mUserDatabase.orderByChild("indonesia").startAt(searchText).endAt(searchText + "\uf8ff");
         FirebaseRecyclerAdapter<Users, UsersViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Users, UsersViewHolder>
                 (
-
                         Users.class,
                         R.layout.list_layout,
                         UsersViewHolder.class,
@@ -145,7 +145,7 @@ public class IndonesiaInggrisFragment extends Fragment implements TextToSpeech.O
                 ) {
             @Override
             protected void populateViewHolder(UsersViewHolder viewHolder, Users model, int position) {
-                viewHolder.setDetails(getActivity().getApplicationContext(), model.getIndonesia(), model.getInggris(),tts);
+                viewHolder.setDetails(getActivity().getApplicationContext(), model.getIndonesia(), model.getInggris(),ttsindo,ttsinggris);
 
             }
         };
@@ -156,10 +156,11 @@ public class IndonesiaInggrisFragment extends Fragment implements TextToSpeech.O
     public void onInit(int status) {
 
         if (status == TextToSpeech.SUCCESS) {
-            int result = tts.setLanguage(Locale.ENGLISH);
+            int resultinggris = ttsinggris.setLanguage(Locale.ENGLISH);
+            int resultindo = ttsindo.setLanguage(Locale.ROOT);
 
-            if (result == TextToSpeech.LANG_MISSING_DATA
-                    || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+            if (resultinggris == TextToSpeech.LANG_MISSING_DATA
+                    || resultinggris == TextToSpeech.LANG_NOT_SUPPORTED) {
                 Toast.makeText(getActivity(), "Language not supported", Toast.LENGTH_SHORT).show();
             } else {
 
@@ -173,7 +174,8 @@ public class IndonesiaInggrisFragment extends Fragment implements TextToSpeech.O
 
     public static class UsersViewHolder extends RecyclerView.ViewHolder {
         View mView;
-        public ImageButton audiotext;
+        public ImageButton audiotextinggris;
+        public ImageButton audiotextindo;
         public UsersViewHolder(View itemView) {
             super(itemView);
 
@@ -181,25 +183,62 @@ public class IndonesiaInggrisFragment extends Fragment implements TextToSpeech.O
         }
 
 
-        public void setDetails(Context ctx, String userIndonesia,final String userInggris , final TextToSpeech tts) {
-            audiotext = mView.findViewById(R.id.audiotext);
+        public void setDetails(Context ctx, String userIndonesia,final String userInggris , final TextToSpeech ttsindo, final TextToSpeech ttsinggris) {
+            audiotextinggris = mView.findViewById(R.id.audiotextbawah);
+            audiotextindo = mView.findViewById(R.id.audiotextatas);
             TextView user_indonesia = (TextView) mView.findViewById(R.id.textView2);
             TextView user_inggris = (TextView) mView.findViewById(R.id.textView3);
 
             user_indonesia.setText(userIndonesia);
             user_inggris.setText(userInggris);
-            audiotext.setOnClickListener(new View.OnClickListener() {
+
+            audiotextinggris.setOnClickListener(new View.OnClickListener() {
                 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                 @Override
                 public void onClick(View v) {
                     //Toast.makeText(ctx, userLatin, Toast.LENGTH_LONG).show();
-                    speakOut(tts, userInggris);
+                    speakOutinggris(ttsinggris, userInggris);
+                }
+            });
+
+            audiotextindo.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                @Override
+                public void onClick(View v) {
+                    //Toast.makeText(ctx, userLatin, Toast.LENGTH_LONG).show();
+                    speakOutindo(ttsindo, userIndonesia);
                 }
             });
         }
 
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-        private void speakOut(TextToSpeech tts, String userInggris) {
+        private void speakOutindo(TextToSpeech tts, String userIndo) {
+            tts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+                @Override
+                public void onStart(String utteranceId) {
+
+                }
+
+                @Override
+                public void onDone(String utteranceId) {
+
+                }
+
+                @Override
+                public void onError(String utteranceId) {
+
+                }
+            });
+
+            Bundle params = new Bundle();
+            params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "");
+
+            String text = userIndo;
+            tts.speak(text, TextToSpeech.QUEUE_FLUSH, params, "Dummy String");
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+        private void speakOutinggris(TextToSpeech tts, String userInggris) {
             tts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
                 @Override
                 public void onStart(String utteranceId) {

@@ -49,7 +49,7 @@ public class JepangInggrisFragment extends Fragment implements TextToSpeech.OnIn
     private RecyclerView result_list;
 
 
-    private TextToSpeech tts;
+    private TextToSpeech ttsjepang,ttsinggris;
 
     private DatabaseReference mUserDatabase;
     private JepangInggrisViewModel jepangInggrisViewModel;
@@ -78,7 +78,8 @@ public class JepangInggrisFragment extends Fragment implements TextToSpeech.OnIn
         search_field = view.findViewById(R.id.search_field);
         search_btn = view.findViewById(R.id.search_btn);
         result_list = view.findViewById(R.id.result_list);
-        tts = new TextToSpeech(getActivity(), (TextToSpeech.OnInitListener) this);
+        ttsjepang = new TextToSpeech(getActivity(), (TextToSpeech.OnInitListener) this);
+        ttsinggris = new TextToSpeech(getActivity(), (TextToSpeech.OnInitListener) this);
         result_list.setHasFixedSize(true);
         result_list.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -141,7 +142,7 @@ public class JepangInggrisFragment extends Fragment implements TextToSpeech.OnIn
 
                 @Override
                 protected void populateViewHolder(UsersViewHolder viewHolder, Users model, int position) {
-                    viewHolder.setDetails(getActivity().getApplicationContext(),model.getLatin(), model.getJepang(),model.getInggris(),tts);
+                    viewHolder.setDetails(getActivity().getApplicationContext(),model.getLatin(), model.getJepang(),model.getInggris(),ttsjepang,ttsinggris);
             }
         };
         result_list.setAdapter(firebaseRecyclerAdapter);
@@ -150,10 +151,11 @@ public class JepangInggrisFragment extends Fragment implements TextToSpeech.OnIn
     public void onInit(int status) {
 
         if (status == TextToSpeech.SUCCESS) {
-            int result = tts.setLanguage(Locale.JAPANESE);
+            int resultjepang = ttsjepang.setLanguage(Locale.JAPANESE);
+            int resultinggris = ttsinggris.setLanguage(Locale.ENGLISH);
 
-            if (result == TextToSpeech.LANG_MISSING_DATA
-                    || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+            if (resultjepang == TextToSpeech.LANG_MISSING_DATA
+                    || resultjepang == TextToSpeech.LANG_NOT_SUPPORTED) {
                 Toast.makeText(getActivity(), "Language not supported", Toast.LENGTH_SHORT).show();
             } else {
 
@@ -166,7 +168,8 @@ public class JepangInggrisFragment extends Fragment implements TextToSpeech.OnIn
     }
     public static class UsersViewHolder extends RecyclerView.ViewHolder {
         View mView;
-        public ImageButton audiotext;
+        public ImageButton audiotextinggris;
+        public ImageButton audiotextjepang;
 
         public UsersViewHolder(View itemView) {
             super(itemView);
@@ -175,9 +178,9 @@ public class JepangInggrisFragment extends Fragment implements TextToSpeech.OnIn
 
 
 
-        public void setDetails(Context ctx, final String userLatin, String userJepang,  String userInggris, final TextToSpeech tts) {
-            audiotext = mView.findViewById(R.id.audiotext);
-
+        public void setDetails(Context ctx, final String userLatin, String userJepang,  String userInggris, final TextToSpeech ttsjepang, final TextToSpeech ttsinggris) {
+            audiotextjepang = mView.findViewById(R.id.audiotextatas);
+            audiotextinggris = mView.findViewById(R.id.audiotextbawah);
 
 
 
@@ -191,18 +194,27 @@ public class JepangInggrisFragment extends Fragment implements TextToSpeech.OnIn
             user_inggris.setText(userInggris);
 
 
-            audiotext.setOnClickListener(new View.OnClickListener() {
+            audiotextjepang.setOnClickListener(new View.OnClickListener() {
                 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                 @Override
                 public void onClick(View v) {
 
-                    speakOut(tts, userLatin);
+                    speakOutjepang(ttsjepang, userLatin);
+                }
+            });
+
+            audiotextinggris.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                @Override
+                public void onClick(View v) {
+
+                    speakOutinggris(ttsinggris, userInggris);
                 }
             });
         }
 
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-        private void speakOut(TextToSpeech tts, String userLatin) {
+        private void speakOutjepang(TextToSpeech tts, String userLatin) {
             tts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
                 @Override
                 public void onStart(String utteranceId) {
@@ -224,6 +236,32 @@ public class JepangInggrisFragment extends Fragment implements TextToSpeech.OnIn
             params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "");
 
             String text = userLatin;
+            tts.speak(text, TextToSpeech.QUEUE_FLUSH, params, "Dummy String");
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+        private void speakOutinggris(TextToSpeech tts, String userInggris) {
+            tts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+                @Override
+                public void onStart(String utteranceId) {
+
+                }
+
+                @Override
+                public void onDone(String utteranceId) {
+
+                }
+
+                @Override
+                public void onError(String utteranceId) {
+
+                }
+            });
+
+            Bundle params = new Bundle();
+            params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "");
+
+            String text = userInggris;
             tts.speak(text, TextToSpeech.QUEUE_FLUSH, params, "Dummy String");
         }
     }

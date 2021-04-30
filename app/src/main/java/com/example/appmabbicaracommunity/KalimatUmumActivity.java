@@ -106,7 +106,7 @@ public class KalimatUmumActivity extends AppCompatActivity implements TextToSpee
 
 
         public void setDetails(Context ctx, final String userLatin,String userJepang, String userIndonesia, final TextToSpeech tts) {
-            audiotext = mView.findViewById(R.id.audiotext);
+            audiotext = mView.findViewById(R.id.audiotextbawah);
 
             TextView user_jepang = (TextView) mView.findViewById(R.id.textView2);;
             TextView user_latin = (TextView) mView.findViewById(R.id.textView3);;

@@ -104,7 +104,7 @@ public class KalimatUmumInggrisActivity extends AppCompatActivity implements Tex
 
 
         public void setDetails(Context ctx, final String userInggris, String userIndonesia, final TextToSpeech tts) {
-            audiotext = mView.findViewById(R.id.audiotext);
+            audiotext = mView.findViewById(R.id.audiotextbawah);
 
             TextView user_inggris = (TextView) mView.findViewById(R.id.textView2);;
             TextView user_indonesia = (TextView) mView.findViewById(R.id.textView3);

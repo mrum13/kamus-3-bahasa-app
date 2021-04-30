@@ -47,7 +47,7 @@ public class InggrisIndonesiaFragment extends Fragment implements TextToSpeech.O
     private String searchText;
 
     private RecyclerView result_list;
-    private TextToSpeech tts;
+    private TextToSpeech ttsinggris,ttsindo;
     private DatabaseReference mUserDatabase;
 
     private InggrisIndonesiaViewModel inggrisIndonesiaViewModel;
@@ -76,7 +76,8 @@ public class InggrisIndonesiaFragment extends Fragment implements TextToSpeech.O
         search_field = view.findViewById(R.id.search_field);
         search_btn = view.findViewById(R.id.search_btn);
         result_list = view.findViewById(R.id.result_list);
-        tts = new TextToSpeech(getActivity(), (TextToSpeech.OnInitListener) this);
+        ttsinggris = new TextToSpeech(getActivity(), (TextToSpeech.OnInitListener) this);
+        ttsindo = new TextToSpeech(getActivity(), (TextToSpeech.OnInitListener) this);
         result_list.setHasFixedSize(true);
         result_list.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -138,7 +139,7 @@ public class InggrisIndonesiaFragment extends Fragment implements TextToSpeech.O
                 ) {
             @Override
             protected void populateViewHolder(UsersViewHolder viewHolder, Users model, int position) {
-                viewHolder.setDetails(getActivity().getApplicationContext(), model.getInggris(), model.getIndonesia(),tts);
+                viewHolder.setDetails(getActivity().getApplicationContext(), model.getInggris(), model.getIndonesia(),ttsinggris,ttsindo);
 
             }
         };
@@ -148,10 +149,11 @@ public class InggrisIndonesiaFragment extends Fragment implements TextToSpeech.O
     public void onInit(int status) {
 
         if (status == TextToSpeech.SUCCESS) {
-            int result = tts.setLanguage(Locale.ENGLISH);
+            int resultinggris = ttsinggris.setLanguage(Locale.ENGLISH);
+            int resultindo = ttsindo.setLanguage(Locale.ROOT);
 
-            if (result == TextToSpeech.LANG_MISSING_DATA
-                    || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+            if (resultinggris == TextToSpeech.LANG_MISSING_DATA
+                    || resultinggris == TextToSpeech.LANG_NOT_SUPPORTED) {
                 Toast.makeText(getActivity(), "Language not supported", Toast.LENGTH_SHORT).show();
             } else {
 
@@ -164,7 +166,7 @@ public class InggrisIndonesiaFragment extends Fragment implements TextToSpeech.O
     }
     public static class UsersViewHolder extends RecyclerView.ViewHolder{
         View mView;
-        public ImageButton audiotext, sharetext;
+        public ImageButton audiotextinggris,audiotextindo, sharetext;
         public UsersViewHolder (View itemView){
             super(itemView);
 
@@ -173,8 +175,9 @@ public class InggrisIndonesiaFragment extends Fragment implements TextToSpeech.O
 
 
 
-        public void setDetails(Context ctx, final String userInggris, String userIndonesia,final TextToSpeech tts) {
-            audiotext = mView.findViewById(R.id.audiotext);
+        public void setDetails(Context ctx, final String userInggris, String userIndonesia,final TextToSpeech ttsinggris, final TextToSpeech ttsindo) {
+            audiotextinggris = mView.findViewById(R.id.audiotextatas);
+            audiotextindo = mView.findViewById(R.id.audiotextbawah);
 
             TextView user_inggris = (TextView) mView.findViewById(R.id.textView2);
             TextView user_indonesia = (TextView) mView.findViewById(R.id.textView3);
@@ -182,12 +185,22 @@ public class InggrisIndonesiaFragment extends Fragment implements TextToSpeech.O
 
             user_inggris.setText(userInggris);
             user_indonesia.setText(userIndonesia);
-            audiotext.setOnClickListener(new View.OnClickListener() {
+
+            audiotextinggris.setOnClickListener(new View.OnClickListener() {
                 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                 @Override
                 public void onClick(View v) {
                     //Toast.makeText(ctx, userLatin, Toast.LENGTH_LONG).show();
-                    speakOut(tts, userInggris);
+                    speakOut(ttsinggris, userInggris);
+                }
+            });
+
+            audiotextindo.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                @Override
+                public void onClick(View v) {
+                    //Toast.makeText(ctx, userLatin, Toast.LENGTH_LONG).show();
+                    speakOut(ttsindo, userIndonesia);
                 }
             });
         }

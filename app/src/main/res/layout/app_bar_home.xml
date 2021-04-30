@@ -364,11 +364,11 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="KEBUDAYAAN INDONESIA"
-                            android:textColor="#000000"
-                            android:layout_toRightOf="@id/img_budaya_ind"
                             android:layout_centerVertical="true"
-                            android:layout_marginLeft="12dp"/>
+                            android:layout_marginLeft="12dp"
+                            android:layout_toRightOf="@id/img_budaya_ind"
+                            android:text="ATURAN TATA BAHASA INDONESIA"
+                            android:textColor="#000000" />
 
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
@@ -400,11 +400,11 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="KEBUDAYAAN JEPANG"
-                            android:textColor="#000000"
                             android:layout_centerVertical="true"
+                            android:layout_marginLeft="12dp"
                             android:layout_toRightOf="@id/img_budaya_jepang"
-                            android:layout_marginLeft="12dp"/>
+                            android:text="ATURAN TATA BAHASA JEPANG"
+                            android:textColor="#000000" />
 
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
@@ -435,11 +435,11 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="KEBUDAYAAN INGGRIS"
-                            android:textColor="#000000"
                             android:layout_centerVertical="true"
+                            android:layout_marginLeft="12dp"
                             android:layout_toRightOf="@id/img_budaya_inggris"
-                            android:layout_marginLeft="12dp"/>
+                            android:text="ATURAN TATA BAHASA INGGRIS"
+                            android:textColor="#000000" />
 
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
