@@ -14,9 +14,9 @@
     <string name="menu_JepangInggris">Jepang-Inggris</string>
     <string name="menu_IndonesiaInggris">Indonesia-Inggris</string>
     <string name="menu_InggrisIndonesia">Inggris-Indonesia</string>
-    <string name="menu_Inggris">Kebudayaan Inggris</string>
-    <string name="menu_Indonesia">Kebudayaan Indonesia</string>
-    <string name="menu_Jepang">Kebudayaan Jepang</string>
+    <string name="menu_Inggris">Aturan Tata Inggris</string>
+    <string name="menu_Indonesia">Aturan Tata Bahasa Indonesia</string>
+    <string name="menu_Jepang">Aturan Tata Bahasa Jepang</string>
     <string name="menu_Simulasi_Jepang">Simulasi Jepang</string>
     <string name="menu_Simulasi_Inggris">Simulasi Inggris</string>
     <!-- TODO: Remove or change this placeholder text -->
