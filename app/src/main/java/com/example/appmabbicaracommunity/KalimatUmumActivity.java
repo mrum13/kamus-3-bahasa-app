@@ -29,7 +29,7 @@ public class KalimatUmumActivity extends AppCompatActivity implements TextToSpee
     private EditText search_field;
     private ImageButton search_btn;
     private RecyclerView recycle_list;
-    private TextToSpeech tts;
+    private TextToSpeech ttsjepang,ttsindo;
     private DatabaseReference mUserDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,8 @@ public class KalimatUmumActivity extends AppCompatActivity implements TextToSpee
         setContentView(R.layout.activity_kalimat_umum);
         mUserDatabase = FirebaseDatabase.getInstance().getReference("KalimatUmum");
         recycle_list = findViewById(R.id.recycle_list);
-        tts = new TextToSpeech(getApplicationContext(), (TextToSpeech.OnInitListener) this);
+        ttsjepang = new TextToSpeech(getApplicationContext(), (TextToSpeech.OnInitListener) this);
+        ttsindo = new TextToSpeech(getApplicationContext(), (TextToSpeech.OnInitListener) this);
         recycle_list.setHasFixedSize(true);
         recycle_list.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         search_field = findViewById(R.id.search_field);
@@ -70,7 +71,7 @@ public class KalimatUmumActivity extends AppCompatActivity implements TextToSpee
                 ) {
             @Override
             protected void populateViewHolder(UsersViewHolder viewHolder, Users model, int position) {
-                viewHolder.setDetails(getApplication().getApplicationContext(),model.getLatin(),model.getJepang(),model.getIndonesia(),tts);
+                viewHolder.setDetails(getApplication().getApplicationContext(),model.getLatin(),model.getJepang(),model.getIndonesia(),ttsjepang,ttsindo);
 
             }
         };
@@ -80,10 +81,11 @@ public class KalimatUmumActivity extends AppCompatActivity implements TextToSpee
     public void onInit(int status) {
 
         if (status == TextToSpeech.SUCCESS) {
-            int result = tts.setLanguage(Locale.JAPAN);
+            int resultjepang = ttsjepang.setLanguage(Locale.JAPAN);
+            int resultindo = ttsindo.setLanguage(Locale.ROOT);
 
-            if (result == TextToSpeech.LANG_MISSING_DATA
-                    || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+            if (resultjepang == TextToSpeech.LANG_MISSING_DATA
+                    || resultjepang == TextToSpeech.LANG_NOT_SUPPORTED) {
                 Toast.makeText(getApplicationContext(), "Language not supported", Toast.LENGTH_SHORT).show();
             } else {
 
@@ -96,7 +98,7 @@ public class KalimatUmumActivity extends AppCompatActivity implements TextToSpee
     }
     public static class UsersViewHolder extends RecyclerView.ViewHolder{
         View mView;
-        public ImageButton audiotext, sharetext;
+        public ImageButton audiotextatas,audiotextbawah, sharetext;
         public UsersViewHolder (View itemView){
             super(itemView);
 
@@ -105,8 +107,9 @@ public class KalimatUmumActivity extends AppCompatActivity implements TextToSpee
 
 
 
-        public void setDetails(Context ctx, final String userLatin,String userJepang, String userIndonesia, final TextToSpeech tts) {
-            audiotext = mView.findViewById(R.id.audiotextbawah);
+        public void setDetails(Context ctx, final String userLatin,String userJepang, String userIndonesia, final TextToSpeech ttsjepang, final TextToSpeech ttsindo) {
+            audiotextatas = mView.findViewById(R.id.audiotextatas);
+            audiotextbawah = mView.findViewById(R.id.audiotextbawah);
 
             TextView user_jepang = (TextView) mView.findViewById(R.id.textView2);;
             TextView user_latin = (TextView) mView.findViewById(R.id.textView3);;
@@ -115,12 +118,22 @@ public class KalimatUmumActivity extends AppCompatActivity implements TextToSpee
             user_jepang.setText(userJepang);
             user_latin.setText(userLatin);
             user_indonesia.setText(userIndonesia);
-            audiotext.setOnClickListener(new View.OnClickListener() {
+
+            audiotextatas.setOnClickListener(new View.OnClickListener() {
                 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                 @Override
                 public void onClick(View v) {
                     //Toast.makeText(ctx, userLatin, Toast.LENGTH_LONG).show();
-                    speakOut(tts, userLatin);
+                    speakOut(ttsjepang, userLatin);
+                }
+            });
+
+            audiotextbawah.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                @Override
+                public void onClick(View v) {
+                    //Toast.makeText(ctx, userLatin, Toast.LENGTH_LONG).show();
+                    speakOut(ttsindo, userIndonesia);
                 }
             });
         }

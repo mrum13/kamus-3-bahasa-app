@@ -193,6 +193,7 @@ public class IndonesiaJepangFragment extends Fragment implements TextToSpeech.On
             final TextView user_indonesia = (TextView) mView.findViewById(R.id.textView2);
             final TextView user_latin = (TextView) mView.findViewById(R.id.textView3);
             final TextView user_jepang = (TextView) mView.findViewById(R.id.textView4);
+            final TextView user_inggirs = (TextView) mView.findViewById(R.id.textView5);
 
 
             user_indonesia.setText(userIndonesia);
