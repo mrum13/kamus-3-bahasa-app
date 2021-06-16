@@ -98,7 +98,7 @@ public class KalimatUmumActivity extends AppCompatActivity implements TextToSpee
     }
     public static class UsersViewHolder extends RecyclerView.ViewHolder{
         View mView;
-        public ImageButton audiotextatas,audiotextbawah, sharetext;
+        public ImageButton audiotextatas,audiotextbawah,audiotexttengah, sharetext;
         public UsersViewHolder (View itemView){
             super(itemView);
 
@@ -110,6 +110,9 @@ public class KalimatUmumActivity extends AppCompatActivity implements TextToSpee
         public void setDetails(Context ctx, final String userLatin,String userJepang, String userIndonesia, final TextToSpeech ttsjepang, final TextToSpeech ttsindo) {
             audiotextatas = mView.findViewById(R.id.audiotextatas);
             audiotextbawah = mView.findViewById(R.id.audiotextbawah);
+            audiotexttengah = mView.findViewById(R.id.audiotexttengah);
+
+            audiotexttengah.setVisibility(View.GONE);
 
             TextView user_jepang = (TextView) mView.findViewById(R.id.textView2);;
             TextView user_latin = (TextView) mView.findViewById(R.id.textView3);;

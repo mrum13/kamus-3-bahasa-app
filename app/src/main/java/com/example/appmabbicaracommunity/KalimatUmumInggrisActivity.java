@@ -29,6 +29,8 @@ public class KalimatUmumInggrisActivity extends AppCompatActivity implements Tex
     private RecyclerView recycle_list;
     private TextToSpeech ttsinggris,ttsindo;
     private DatabaseReference mUserDatabase;
+    private TextView tv4;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +43,9 @@ public class KalimatUmumInggrisActivity extends AppCompatActivity implements Tex
         recycle_list.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         search_field = findViewById(R.id.search_field);
         search_btn = findViewById(R.id.search_btn);
+//        tv4 = findViewById(R.id.textView4);
 
+//        tv4.setVisibility(View.GONE);
 
         search_btn.setOnClickListener(new View.OnClickListener() {
 
@@ -96,7 +100,7 @@ public class KalimatUmumInggrisActivity extends AppCompatActivity implements Tex
     }
     public static class UsersViewHolder extends RecyclerView.ViewHolder{
         View mView;
-        public ImageButton audiotextbawah, audiotextatas, sharetext;
+        public ImageButton audiotexttengah, audiotextatas, audiotextbawah, sharetext;
         public UsersViewHolder (View itemView){
             super(itemView);
 
@@ -107,10 +111,16 @@ public class KalimatUmumInggrisActivity extends AppCompatActivity implements Tex
 
         public void setDetails(Context ctx, final String userInggris, String userIndonesia, final TextToSpeech ttsinggris,final TextToSpeech ttsindo) {
             audiotextatas = mView.findViewById(R.id.audiotextatas);
+            audiotexttengah = mView.findViewById(R.id.audiotexttengah);
             audiotextbawah = mView.findViewById(R.id.audiotextbawah);
+
+            audiotextbawah.setVisibility(View.GONE);
 
             TextView user_inggris = (TextView) mView.findViewById(R.id.textView2);;
             TextView user_indonesia = (TextView) mView.findViewById(R.id.textView3);
+            TextView user_3 = (TextView) mView.findViewById(R.id.textView4);
+
+            user_3.setVisibility(View.GONE);
 
             user_inggris.setText(userInggris);
             user_indonesia.setText(userIndonesia);
@@ -124,7 +134,7 @@ public class KalimatUmumInggrisActivity extends AppCompatActivity implements Tex
                 }
             });
 
-            audiotextbawah.setOnClickListener(new View.OnClickListener() {
+            audiotexttengah.setOnClickListener(new View.OnClickListener() {
                 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                 @Override
                 public void onClick(View v) {

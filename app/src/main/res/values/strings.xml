@@ -8,10 +8,10 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Info Aplikasi</string>
 
-    <string name="menu_IndonesiaJepang">Indonesia-Jepang</string>
+    <string name="menu_IndonesiaJepang">Indonesia-Ingrris-Jepang</string>
     <string name="menu_JepangIndonesia">Jepang-Indonesia</string>
-    <string name="menu_InggrisJepang">Inggris-Jepang</string>
-    <string name="menu_JepangInggris">Jepang-Inggris</string>
+    <string name="menu_InggrisJepang">Inggris-Jepang-Indonesia</string>
+    <string name="menu_JepangInggris">Jepang-Inggris-Indonesia</string>
     <string name="menu_IndonesiaInggris">Indonesia-Inggris</string>
     <string name="menu_InggrisIndonesia">Inggris-Indonesia</string>
     <string name="menu_Inggris">Aturan Tata Inggris</string>

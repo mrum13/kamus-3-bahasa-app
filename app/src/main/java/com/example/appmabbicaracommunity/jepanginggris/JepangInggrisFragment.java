@@ -49,7 +49,7 @@ public class JepangInggrisFragment extends Fragment implements TextToSpeech.OnIn
     private RecyclerView result_list;
 
 
-    private TextToSpeech ttsjepang,ttsinggris;
+    private TextToSpeech ttsjepang,ttsinggris,ttsindo;
 
     private DatabaseReference mUserDatabase;
     private JepangInggrisViewModel jepangInggrisViewModel;
@@ -74,12 +74,13 @@ public class JepangInggrisFragment extends Fragment implements TextToSpeech.OnIn
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.menu_JepangInggris);
 
-        mUserDatabase = FirebaseDatabase.getInstance().getReference("JepangInggris");
+        mUserDatabase = FirebaseDatabase.getInstance().getReference("jepanginggrisindonesia");
         search_field = view.findViewById(R.id.search_field);
         search_btn = view.findViewById(R.id.search_btn);
         result_list = view.findViewById(R.id.result_list);
         ttsjepang = new TextToSpeech(getActivity(), (TextToSpeech.OnInitListener) this);
         ttsinggris = new TextToSpeech(getActivity(), (TextToSpeech.OnInitListener) this);
+        ttsindo = new TextToSpeech(getActivity(), (TextToSpeech.OnInitListener) this);
         result_list.setHasFixedSize(true);
         result_list.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -142,7 +143,7 @@ public class JepangInggrisFragment extends Fragment implements TextToSpeech.OnIn
 
                 @Override
                 protected void populateViewHolder(UsersViewHolder viewHolder, Users model, int position) {
-                    viewHolder.setDetails(getActivity().getApplicationContext(),model.getLatin(), model.getJepang(),model.getInggris(),ttsjepang,ttsinggris);
+                    viewHolder.setDetails(getActivity().getApplicationContext(),model.getLatin(), model.getJepang(),model.getInggris(),model.getIndonesia(),ttsjepang,ttsinggris,ttsindo);
             }
         };
         result_list.setAdapter(firebaseRecyclerAdapter);
@@ -153,6 +154,7 @@ public class JepangInggrisFragment extends Fragment implements TextToSpeech.OnIn
         if (status == TextToSpeech.SUCCESS) {
             int resultjepang = ttsjepang.setLanguage(Locale.JAPANESE);
             int resultinggris = ttsinggris.setLanguage(Locale.ENGLISH);
+            int resultindo = ttsindo.setLanguage(Locale.ROOT);
 
             if (resultjepang == TextToSpeech.LANG_MISSING_DATA
                     || resultjepang == TextToSpeech.LANG_NOT_SUPPORTED) {
@@ -170,6 +172,7 @@ public class JepangInggrisFragment extends Fragment implements TextToSpeech.OnIn
         View mView;
         public ImageButton audiotextinggris;
         public ImageButton audiotextjepang;
+        public ImageButton audiotextindo;
 
         public UsersViewHolder(View itemView) {
             super(itemView);
@@ -178,18 +181,19 @@ public class JepangInggrisFragment extends Fragment implements TextToSpeech.OnIn
 
 
 
-        public void setDetails(Context ctx, final String userLatin, String userJepang,  String userInggris, final TextToSpeech ttsjepang, final TextToSpeech ttsinggris) {
+        public void setDetails(Context ctx, final String userLatin, String userJepang,  String userInggris, String userIndo, final TextToSpeech ttsjepang, final TextToSpeech ttsinggris, final TextToSpeech ttsindo) {
             audiotextjepang = mView.findViewById(R.id.audiotextatas);
-            audiotextinggris = mView.findViewById(R.id.audiotextbawah);
+            audiotextinggris = mView.findViewById(R.id.audiotexttengah);
+            audiotextindo = mView.findViewById(R.id.audiotextbawah);
 
 
+//            final TextView user_latin = (TextView) mView.findViewById(R.id.textView2);
+            final TextView user_jepang = (TextView) mView.findViewById(R.id.textView2);
+            final TextView user_inggris = (TextView) mView.findViewById(R.id.textView3);
+            final TextView user_indo = (TextView) mView.findViewById(R.id.textView4);
 
-            final TextView user_latin = (TextView) mView.findViewById(R.id.textView2);
-            final TextView user_jepang = (TextView) mView.findViewById(R.id.textView3);
-            final TextView user_inggris = (TextView) mView.findViewById(R.id.textView4);
 
-
-            user_latin.setText(userLatin);
+            user_indo.setText(userIndo);
             user_jepang.setText(userJepang);
             user_inggris.setText(userInggris);
 
@@ -199,7 +203,16 @@ public class JepangInggrisFragment extends Fragment implements TextToSpeech.OnIn
                 @Override
                 public void onClick(View v) {
 
-                    speakOutjepang(ttsjepang, userLatin);
+                    speakOutjepang(ttsjepang, userJepang);
+                }
+            });
+
+            audiotextindo.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                @Override
+                public void onClick(View v) {
+
+                    speakOutindo(ttsindo, userIndo);
                 }
             });
 
@@ -236,6 +249,32 @@ public class JepangInggrisFragment extends Fragment implements TextToSpeech.OnIn
             params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "");
 
             String text = userLatin;
+            tts.speak(text, TextToSpeech.QUEUE_FLUSH, params, "Dummy String");
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+        private void speakOutindo(TextToSpeech tts, String userIndo) {
+            tts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+                @Override
+                public void onStart(String utteranceId) {
+
+                }
+
+                @Override
+                public void onDone(String utteranceId) {
+
+                }
+
+                @Override
+                public void onError(String utteranceId) {
+
+                }
+            });
+
+            Bundle params = new Bundle();
+            params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "");
+
+            String text = userIndo;
             tts.speak(text, TextToSpeech.QUEUE_FLUSH, params, "Dummy String");
         }
 

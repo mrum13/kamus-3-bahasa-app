@@ -52,7 +52,7 @@ public class IndonesiaJepangFragment extends Fragment implements TextToSpeech.On
     private RecyclerView result_list;
 
     private DatabaseReference mUserDatabase;
-    private TextToSpeech ttsjepang,ttsindo;
+    private TextToSpeech ttsjepang,ttsindo,ttsinggris;
 
     String searchText;
 
@@ -81,12 +81,13 @@ public class IndonesiaJepangFragment extends Fragment implements TextToSpeech.On
         super.onViewCreated(view, savedInstanceState);
         ttsjepang = new TextToSpeech(getActivity(), this);
         ttsindo = new TextToSpeech(getActivity(), this);
+        ttsinggris = new TextToSpeech(getActivity(),this);
 
 //        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
 //        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
             ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.menu_IndonesiaJepang);
 
-        mUserDatabase = FirebaseDatabase.getInstance().getReference("IndonesiaJepang");
+        mUserDatabase = FirebaseDatabase.getInstance().getReference("indonesiainggrisjepang");
         search_field = view.findViewById(R.id.search_field);
         search_btn = view.findViewById(R.id.search_btn);
         result_list = view.findViewById(R.id.result_list);
@@ -148,7 +149,7 @@ public class IndonesiaJepangFragment extends Fragment implements TextToSpeech.On
                 ) {
             @Override
             protected void populateViewHolder(UsersViewHolder viewHolder, Users model, int position) {
-                viewHolder.setDetails(getActivity().getApplicationContext(), model.getIndonesia(), model.getLatin(), model.getJepang(), ttsindo,ttsjepang);
+                viewHolder.setDetails(getActivity().getApplicationContext(), model.getIndonesia(), model.getLatin(), model.getJepang(),model.getInggris(), ttsindo,ttsjepang,ttsinggris);
 
             }
         };
@@ -161,6 +162,7 @@ public class IndonesiaJepangFragment extends Fragment implements TextToSpeech.On
         if (status == TextToSpeech.SUCCESS) {
             int resultjepang = ttsjepang.setLanguage(Locale.JAPANESE);
             int resultindo = ttsindo.setLanguage(Locale.ROOT);
+            int resultinggris = ttsinggris.setLanguage(Locale.ENGLISH);
 
             if (resultjepang == TextToSpeech.LANG_MISSING_DATA
                     || resultjepang == TextToSpeech.LANG_NOT_SUPPORTED) {
@@ -177,35 +179,46 @@ public class IndonesiaJepangFragment extends Fragment implements TextToSpeech.On
 
     public static class UsersViewHolder extends RecyclerView.ViewHolder {
         View mView;
-        public ImageButton audiotextjepang,audiotextindo;
+        public ImageButton audiotextjepang,audiotextindo,audiotextinggris;
         public UsersViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
         }
 
 
-        public void setDetails(final Context ctx,  final String userIndonesia, final String userLatin, final String userJepang, final TextToSpeech ttsindo, final TextToSpeech ttsjepang) {
+        public void setDetails(final Context ctx,  final String userIndonesia, final String userLatin, final String userJepang, final String userInggris, final TextToSpeech ttsindo, final TextToSpeech ttsjepang,final TextToSpeech ttsinggris) {
 
             audiotextjepang = mView.findViewById(R.id.audiotextbawah);
             audiotextindo = mView.findViewById(R.id.audiotextatas);
+            audiotextinggris = mView.findViewById(R.id.audiotexttengah);
 
 
             final TextView user_indonesia = (TextView) mView.findViewById(R.id.textView2);
-            final TextView user_latin = (TextView) mView.findViewById(R.id.textView3);
+//            final TextView user_latin = (TextView) mView.findViewById(R.id.textView3);
             final TextView user_jepang = (TextView) mView.findViewById(R.id.textView4);
-            final TextView user_inggirs = (TextView) mView.findViewById(R.id.textView5);
+            final TextView user_inggirs = (TextView) mView.findViewById(R.id.textView3);
 
 
             user_indonesia.setText(userIndonesia);
-            user_latin.setText(userLatin);
+//            user_latin.setText(userLatin);
             user_jepang.setText(userJepang);
+            user_inggirs.setText(userInggris);
 
             audiotextjepang.setOnClickListener(new View.OnClickListener() {
                 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                 @Override
                 public void onClick(View v) {
                     //Toast.makeText(ctx, userLatin, Toast.LENGTH_LONG).show();
-                    speakOutJepang(ttsjepang, userLatin);
+                    speakOutJepang(ttsjepang, userJepang);
+                }
+            });
+
+            audiotextinggris.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                @Override
+                public void onClick(View v) {
+                    //Toast.makeText(ctx, userLatin, Toast.LENGTH_LONG).show();
+                    speakOutInggris(ttsinggris, userInggris);
                 }
             });
 
@@ -241,6 +254,32 @@ public class IndonesiaJepangFragment extends Fragment implements TextToSpeech.On
             params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "");
 
             String text = userIndonesia;
+            tts.speak(text, TextToSpeech.QUEUE_FLUSH, params, "Dummy String");
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+        private void speakOutInggris(TextToSpeech tts, String userInggris) {
+            tts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+                @Override
+                public void onStart(String utteranceId) {
+
+                }
+
+                @Override
+                public void onDone(String utteranceId) {
+
+                }
+
+                @Override
+                public void onError(String utteranceId) {
+
+                }
+            });
+
+            Bundle params = new Bundle();
+            params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "");
+
+            String text = userInggris;
             tts.speak(text, TextToSpeech.QUEUE_FLUSH, params, "Dummy String");
         }
 

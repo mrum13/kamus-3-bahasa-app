@@ -36,7 +36,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_quis"
         app:layout_constraintVertical_bias="0.072"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/btn_kalimatumum1"
@@ -66,7 +67,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_kalimatumum1"
         app:layout_constraintVertical_bias="0.139"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/btn_panduanvideoinggris"

@@ -46,7 +46,7 @@ public class InggrisJepangFragment extends Fragment implements TextToSpeech.OnIn
     private CircleImageView voice;
     private String searchText;
 
-    private TextToSpeech ttsjepang,ttsinggris;
+    private TextToSpeech ttsjepang,ttsinggris,ttsindo;
 
     private RecyclerView result_list;
 
@@ -74,11 +74,12 @@ public class InggrisJepangFragment extends Fragment implements TextToSpeech.OnIn
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.menu_InggrisJepang);
 
-        mUserDatabase = FirebaseDatabase.getInstance().getReference("InggrisJepang");
+        mUserDatabase = FirebaseDatabase.getInstance().getReference("inggrisjepangindonesia");
         search_field = view.findViewById(R.id.search_field);
         search_btn = view.findViewById(R.id.search_btn);
         ttsinggris = new TextToSpeech(getActivity(), (TextToSpeech.OnInitListener) this);
         ttsjepang = new TextToSpeech(getActivity(), (TextToSpeech.OnInitListener) this);
+        ttsindo = new TextToSpeech(getActivity(), (TextToSpeech.OnInitListener) this);
         result_list = view.findViewById(R.id.result_list);
         result_list.setHasFixedSize(true);
         result_list.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -141,7 +142,7 @@ public class InggrisJepangFragment extends Fragment implements TextToSpeech.OnIn
                 ) {
             @Override
             protected void populateViewHolder(UsersViewHolder viewHolder, Users model, int position) {
-                viewHolder.setDetails(getActivity().getApplicationContext(), model.getInggris(), model.getLatin(),model.getJepang(),ttsinggris,ttsjepang);
+                viewHolder.setDetails(getActivity().getApplicationContext(), model.getInggris(), model.getLatin(),model.getJepang(),model.getIndonesia(),ttsinggris,ttsjepang,ttsindo);
 
             }
         };
@@ -153,6 +154,7 @@ public class InggrisJepangFragment extends Fragment implements TextToSpeech.OnIn
         if (status == TextToSpeech.SUCCESS) {
             int resultjepang = ttsjepang.setLanguage(Locale.JAPANESE);
             int resultinggris = ttsinggris.setLanguage(Locale.ENGLISH);
+            int resultindo = ttsindo.setLanguage(Locale.ROOT);
 
             if (resultjepang == TextToSpeech.LANG_MISSING_DATA
                     || resultjepang == TextToSpeech.LANG_NOT_SUPPORTED) {
@@ -169,7 +171,7 @@ public class InggrisJepangFragment extends Fragment implements TextToSpeech.OnIn
 
     public static class UsersViewHolder extends RecyclerView.ViewHolder{
         View mView;
-        public ImageButton audiotextinggris,audiotextjepang, sharetext;
+        public ImageButton audiotextinggris,audiotextjepang, audiotextindo, sharetext;
         public UsersViewHolder (View itemView){
             super(itemView);
 
@@ -178,17 +180,18 @@ public class InggrisJepangFragment extends Fragment implements TextToSpeech.OnIn
 
 
 
-        public void setDetails(Context ctx, String userInggris, final String userLatin, String userJepang, final TextToSpeech ttsinggris, final TextToSpeech ttsjepang) {
-            audiotextjepang = mView.findViewById(R.id.audiotextbawah);
+        public void setDetails(Context ctx, String userInggris, final String userLatin, String userJepang, String userIndo, final TextToSpeech ttsinggris, final TextToSpeech ttsjepang, final TextToSpeech ttsindo) {
+            audiotextjepang = mView.findViewById(R.id.audiotexttengah);
             audiotextinggris = mView.findViewById(R.id.audiotextatas);
+            audiotextindo = mView.findViewById(R.id.audiotextbawah);
 
             TextView user_inggris = (TextView) mView.findViewById(R.id.textView2);
-            TextView user_latin = (TextView) mView.findViewById(R.id.textView3);
-            TextView user_jepang = (TextView) mView.findViewById(R.id.textView4);
+            TextView user_indo = (TextView) mView.findViewById(R.id.textView4);
+            TextView user_jepang = (TextView) mView.findViewById(R.id.textView3);
 
 
             user_inggris.setText(userInggris);
-            user_latin.setText(userLatin);
+            user_indo.setText(userIndo);
             user_jepang.setText(userJepang);
 
             audiotextjepang.setOnClickListener(new View.OnClickListener() {
@@ -196,7 +199,16 @@ public class InggrisJepangFragment extends Fragment implements TextToSpeech.OnIn
                 @Override
                 public void onClick(View v) {
                     //Toast.makeText(ctx, userLatin, Toast.LENGTH_LONG).show();
-                    speakOut(ttsjepang, userLatin);
+                    speakOut(ttsjepang, userJepang);
+                }
+            });
+
+            audiotextindo.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                @Override
+                public void onClick(View v) {
+                    //Toast.makeText(ctx, userLatin, Toast.LENGTH_LONG).show();
+                    speakOut(ttsindo, userIndo);
                 }
             });
 

@@ -21,7 +21,7 @@ import androidx.navigation.ui.NavigationUI;
 public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private final boolean isOpen = false;
-    private CardView indjpn,jpnind,jpneng,engjpn,engind,indeng,budayaindo,budayainggris,budayajepang,simulasiinggris,simulasijepang;
+    private CardView indjpneng,jpnind,jpneng,engjpn,engind,indeng,budayaindo,budayainggris,budayajepang,simulasiinggris,simulasijepang;
     private String katakunci;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 //        setSupportActionBar(toolbar);
 
 
-        indjpn = findViewById(R.id.indtojpn);
+        indjpneng = findViewById(R.id.indtojpntoeng);
         jpnind = findViewById(R.id.jpntoind);
         jpneng = findViewById(R.id.jpntoeng);
         engjpn = findViewById(R.id.engtojpn);
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         simulasiinggris = findViewById(R.id.simulasi_inggris);
         simulasijepang = findViewById(R.id.simulasi_jepang);
 
-        indjpn.setOnClickListener(new View.OnClickListener() {
+        indjpneng.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 katakunci = "indtojpn";

@@ -27,7 +27,7 @@
                     android:layout_marginTop="24dp"
                     app:cardBackgroundColor="#FFFFFF"
                     app:cardCornerRadius="20dp"
-                    android:id="@+id/indtojpn">
+                    android:id="@+id/indtojpntoeng">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -53,7 +53,7 @@
                         <ImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/jepang"
+                            android:src="@drawable/inggris"
                             android:id="@+id/benderakanan"
                             android:layout_centerVertical="true"
                             android:layout_toRightOf="@id/panah1"
@@ -71,7 +71,7 @@
                         <ImageView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/inggris"
+                            android:src="@drawable/jepang"
                             android:id="@+id/benderakanan1_2"
                             android:layout_centerVertical="true"
                             android:layout_toRightOf="@id/panah1_2"
@@ -80,7 +80,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="INA-JPN-ENG"
+                            android:text="INA-ENG-JPN"
                             android:textColor="#000000"
                             android:layout_toRightOf="@id/benderakanan1_2"
                             android:layout_centerVertical="true"
@@ -94,14 +94,15 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:layout_below="@id/indtojpn"
+                    android:layout_below="@id/indtojpntoeng"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="14dp"
                     android:layout_marginTop="14dp"
                     app:cardBackgroundColor="#FFFFFF"
                     app:cardCornerRadius="20dp"
-                    android:id="@+id/jpntoind">
+                    android:id="@+id/jpntoind"
+                    android:visibility="gone">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -185,13 +186,31 @@
                             android:layout_toRightOf="@id/panah3"
                             android:layout_marginLeft="12dp"/>
 
+                        <ImageView
+                            android:id="@+id/panah2_2"
+                            android:layout_width="24dp"
+                            android:layout_height="38dp"
+                            android:src="@drawable/ic_baseline_arrow_forward_24"
+                            android:layout_toRightOf="@id/benderakanan2"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="12dp"/>
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/indo"
+                            android:id="@+id/benderakanan2_2"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@id/panah2_2"
+                            android:layout_marginLeft="12dp"/>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="JEPANG-INGGRIS"
+                            android:text="JPN-ENG-INA"
                             android:textColor="#000000"
                             android:layout_centerVertical="true"
-                            android:layout_toRightOf="@id/benderakanan2"
+                            android:layout_toRightOf="@id/benderakanan2_2"
                             android:layout_marginLeft="12dp"/>
 
                     </RelativeLayout>
@@ -237,14 +256,32 @@
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="12dp"/>
 
+                        <ImageView
+                            android:id="@+id/panah3_2"
+                            android:layout_width="24dp"
+                            android:layout_height="38dp"
+                            android:src="@drawable/ic_baseline_arrow_forward_24"
+                            android:layout_toRightOf="@id/benderakanan3"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="12dp"/>
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/indo"
+                            android:id="@+id/benderakanan3_2"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@id/panah3_2"
+                            android:layout_marginLeft="12dp"/>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="INGGRIS-JEPANG"
+                            android:text="ENG-JPN-INA"
                             android:textColor="#000000"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="12dp"
-                            android:layout_toRightOf="@id/benderakanan3"/>
+                            android:layout_toRightOf="@id/benderakanan3_2"/>
 
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
@@ -258,6 +295,7 @@
                     app:cardBackgroundColor="#FFFFFF"
                     app:cardCornerRadius="20dp"
                     android:id="@+id/engtoind"
+                    android:visibility="gone"
                     android:layout_alignParentRight="true">
 
                     <RelativeLayout
@@ -310,6 +348,7 @@
                     android:layout_marginTop="14dp"
                     app:cardBackgroundColor="#FFFFFF"
                     app:cardCornerRadius="20dp"
+                    android:visibility="gone"
                     android:id="@+id/indtoeng">
 
                     <RelativeLayout
