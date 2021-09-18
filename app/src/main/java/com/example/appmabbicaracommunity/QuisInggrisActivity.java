@@ -19,29 +19,29 @@ public class QuisInggrisActivity extends AppCompatActivity {
 
     //pertanyaan
     String[] pertanyaan_kuis = new String[]{
-            "The six president of indonesia is ...",
-            "The coat of arms of indonesia is ...",
-            "The Capital of indonesia is ...",
-            "The National Anthem Of Indonesia is ...",
-            "The Flag Of Indonesia is ..."
+            "I...at 5 am",
+            "I...a letter for my mom",
+            "They...me so well",
+            "We...this food here",
+            "She...a homemade cake"
     };
 
     //pilihan jawaban a, b, c, d
     String[] pilihan_jawaban = new String[]{
-            "Soekarno", "Habibie", "Susilo Bambang Yudhoyono", "Joko Widodo",
-            "Gajah Putih", "Garuda", "Macan", "Elang",
-            "Jakarta", "Bogor", "Tangerang", "Bekasi",
-            "Indonesia Raya", "Tanah Airku", "Indonesia Pusaka", "Indonesia Merdeka",
-            "Merah Biru Putih", "Merah Putih", "Putih Merah", "Belang-belang"
+            "get up", "gets up", "getting up", "got up",
+            "write", "writing", "wrote", "writes",
+            "know", "knew", "knew", "known",
+            "ate", "eat", "eaten", "eating",
+            "made", "make", "makes", "making"
     };
 
     //jawaban benar
     String[] jawaban_benar = new String[]{
-            "Susilo Bambang Yudhoyono",
-            "Garuda",
-            "Jakarta",
-            "Indonesia Raya",
-            "Merah Putih"
+            "get up",
+            "write",
+            "know",
+            "eat",
+            "makes"
     };
 
     @Override

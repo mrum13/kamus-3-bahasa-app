@@ -19,6 +19,7 @@
     <string name="menu_Jepang">Aturan Tata Bahasa Jepang</string>
     <string name="menu_Simulasi_Jepang">Simulasi Jepang</string>
     <string name="menu_Simulasi_Inggris">Simulasi Inggris</string>
+    <string name="menu_Simulasi_Indo">Simulasi Indo</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

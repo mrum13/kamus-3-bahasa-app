@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    tools:context=".simulasiindo.SimulasiIndoFragment">
+
+    <Button
+        android:id="@+id/btn_quis_indo"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:background="@drawable/buttonsimulasi"
+        android:text="Quis (Quiz)"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.185"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/btn_angka_indo"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:background="@drawable/buttonsimulasi"
+        android:text="Angka (Number)"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_quis_indo"
+        app:layout_constraintVertical_bias="0.072"
+        tools:ignore="MissingConstraints"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/btn_kalimatumum1_indo"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:background="@drawable/buttonsimulasi"
+        android:text="Kalimat Umum"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_angka_indo"
+        app:layout_constraintVertical_bias="0.103"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/btn_hewan"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:background="@drawable/buttonsimulasi"
+        android:text="Hewan (Animal)"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_kalimatumum1_indo"
+        app:layout_constraintVertical_bias="0.139"
+        tools:ignore="MissingConstraints"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/btn_panduanvideoindo"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:background="@drawable/buttonsimulasi"
+        android:text="Panduan Video"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_hewan"
+        app:layout_constraintVertical_bias="0.139"
+        tools:ignore="MissingConstraints" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

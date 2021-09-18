@@ -14,7 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ContentMain"></activity>
+        <activity android:name=".ResultIndoActivity"></activity>
+        <activity android:name=".KalimatUmumIndoActivity" />
+        <activity android:name=".PanduanVideoIndoActivity" />
+        <activity android:name=".QuisIndoActivity" />
+        <activity android:name=".ContentMain" />
         <activity android:name=".PanduanActivity" />
         <activity android:name=".NumberInggrisActivity" />
         <activity android:name=".MainActivity" />
@@ -31,7 +35,8 @@
         <activity android:name=".HiraganaActivity" />
         <activity android:name=".KatakanaActivity" />
         <activity android:name=".QuisJepangActivity" />
-        <activity android:name=".SplashActivity"
+        <activity
+            android:name=".SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

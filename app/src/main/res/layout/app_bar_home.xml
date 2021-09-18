@@ -586,7 +586,48 @@
 
                     </RelativeLayout>
 
+                </androidx.cardview.widget.CardView>
 
+                <androidx.cardview.widget.CardView
+                    android:layout_below="@id/budaya_jepang"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="14dp"
+                    app:cardBackgroundColor="#ffffff"
+                    app:cardCornerRadius="20dp"
+                    android:id="@+id/simulasi_indo"
+                    android:layout_marginBottom="24dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="24dp"
+                            android:src="@drawable/asking"
+                            android:layout_centerVertical="true"
+                            android:id="@+id/asking3"/>
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/indo"
+                            android:id="@+id/benderakanan9"
+                            android:layout_toRightOf="@id/asking3"
+                            android:layout_marginLeft="12dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SIMULASI INDONESIA"
+                            android:textColor="#000000"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="12dp"
+                            android:layout_toRightOf="@id/benderakanan9"/>
+
+                    </RelativeLayout>
 
                 </androidx.cardview.widget.CardView>
 

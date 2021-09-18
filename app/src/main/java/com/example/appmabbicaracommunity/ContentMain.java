@@ -22,6 +22,7 @@ import com.example.appmabbicaracommunity.jepanginggris.JepangInggrisFragment;
 import com.example.appmabbicaracommunity.kebudayaanindonesia.KebudayaanIndonesiaFragment;
 import com.example.appmabbicaracommunity.kebudayaaninggris.KebudayaanInggrisFragment;
 import com.example.appmabbicaracommunity.kebudayaanjepang.KebudayaanJepangFragment;
+import com.example.appmabbicaracommunity.simulasiindo.SimulasiIndoFragment;
 import com.example.appmabbicaracommunity.simulasiinggris.SimulasiInggrisFragment;
 import com.example.appmabbicaracommunity.simulasijepang.SimulasiJepangFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -29,7 +30,7 @@ import com.google.android.material.navigation.NavigationView;
 public class ContentMain extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     String judul_intent, getKey;
-    Fragment indjpn,jpnind,jpneng,engjpn,engind,indeng,budayaindo,budayajepang,budayainggris,simulasijepang,simulasiinggris;
+    Fragment indjpn,jpnind,jpneng,engjpn,engind,indeng,budayaindo,budayajepang,budayainggris,simulasijepang,simulasiinggris,simulasiindo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class ContentMain extends AppCompatActivity {
 
         simulasiinggris = new SimulasiInggrisFragment();
         simulasijepang = new SimulasiJepangFragment();
+        simulasiindo = new SimulasiIndoFragment();
 
         getIncomingIntent();
 
@@ -98,7 +100,9 @@ public class ContentMain extends AppCompatActivity {
         else if (getKey.equals("budayainggris")){
             transaction.replace(R.id.nav_host_fragment, budayainggris);
         }
-
+        else if (getKey.equals("simulasiindo")){
+            transaction.replace(R.id.nav_host_fragment, simulasiindo);
+        }
         else if (getKey.equals("simulasijepang")){
             transaction.replace(R.id.nav_host_fragment, simulasijepang);
         }

@@ -21,7 +21,7 @@ import androidx.navigation.ui.NavigationUI;
 public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private final boolean isOpen = false;
-    private CardView indjpneng,jpnind,jpneng,engjpn,engind,indeng,budayaindo,budayainggris,budayajepang,simulasiinggris,simulasijepang;
+    private CardView indjpneng,jpnind,jpneng,engjpn,engind,indeng,budayaindo,budayainggris,budayajepang,simulasiinggris,simulasijepang,simulasiindo;
     private String katakunci;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         simulasiinggris = findViewById(R.id.simulasi_inggris);
         simulasijepang = findViewById(R.id.simulasi_jepang);
+        simulasiindo = findViewById(R.id.simulasi_indo);
 
         indjpneng.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,6 +130,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 katakunci = "simulasiinggris";
+                intent();
+            }
+        });
+
+        simulasiindo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                katakunci = "simulasiindo";
                 intent();
             }
         });
